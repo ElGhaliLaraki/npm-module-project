@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="UTF-8">
+      <title>Mon Appareil photo</title>
+      <link href="bootstrap.css" rel="stylesheet">
+      <link rel='stylesheet' href='Appareil_photo.css' />
+      <script src="Appareil_photo.js"></script>
+  </head>
+  <body >
+        <div class='resizable' style="opacity: 0;" id="resizable">
+                <div class='resizers'>
+                    <div class='resizer top-left'></div>
+                    <div class='resizer left-center'></div>
+                    <div class='resizer top-right'></div>
+                    <div class='resizer right-center'></div>
+                    <div class='resizer top-center'></div>
+                    <div class='resizer bottom-left'></div>
+                    <div class='resizer bottom-right'></div>
+                    <div class='resizer bottom-center'></div>
+                </div>
+        </div>
+        <header>
+            <nav>
+                 <ul> 
+                     <img class="header_img" src="2.PNG" alt="slideshow">
+                     <li> <a href="Accueil.html">  Acceuil </a>  </li>
+                     <li> <a href="Appareil_photo.html"> Appareil Photo </a>  </li>
+                </ul> 
+           </nav> 
+       </header>
+    <h1  class="Titre">Bienvenue </h1>
+    <div class="container header">
+        <p class="parag">Prendre une photo : </p>
+        <button onclick="watch_video()" class="booth-capture-button">Appareil Photo</button>
+    </div>
+    
+    <div class="container" id="divs">
+        <div class="row">
+                <div class="col-md-6 canvas">
+                        <div class="booth ">
+                      
+                          <video  id="MyCam" width="400" height="300" autoplay></video>
+                          <canvas class="cap" id="canvas" width="400" height="300"></canvas>
+                          <a class="booth-capture-button" id="btnCapture" ><button type="button" onclick="Capture()" >Capturer</button></a>
+                          <a  class="booth-Recadrer-button" id="recadrer" ><button  type="button" onClick="recadrerImg()">Recadrer</button></a>
+                          <a  class="booth-Download-button" id="download" download="image.png"><button  type="button" onClick="download()">Download</button></a>
+                          <input id="luminance" type="range" min="0" max="200" value="100" step="1" onchange="filter()" data-filter="brightness" data-scale="%">
+                        </div>
+                        
+                      </div>
+            <div class="col-md-6">
+                <div  id="webcam_container">
+                    <video class="vid" autoplay="true" loop id="MyCam" width="480" height="295"></video>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+    
+    <footer>
+            <div style="font-size: 20px" class="text-center py-3">Copyright&copy;2019 ElGhaliLaraki </div>
+    </footer>
+    <script>
+    function makeResizableDiv(div) {
+    const element = document.querySelector(div);
+    const resizers = document.querySelectorAll(div + ' .resizer')
+    const minimum_size = 20;
+    let original_width = 0;
+    let original_height = 0;
+    let original_x = 0;
+    let original_y = 0;
+    let original_mouse_x = 0;
+    let original_mouse_y = 0;
+    for (let i = 0;i < resizers.length; i++) {
+        const currentResizer = resizers[i];
+        currentResizer.addEventListener('mousedown', function(e) {
+            e.preventDefault()
+            original_width = parseFloat(getComputedStyle(element, null).getPropertyValue('width').replace('px', ''));
+            original_height = parseFloat(getComputedStyle(element, null).getPropertyValue('height').replace('px', ''));
+            original_x = element.getBoundingClientRect().left;
+            original_y = element.getBoundingClientRect().top;
+            original_mouse_x = e.pageX;
+            original_mouse_y = e.pageY;
+            window.addEventListener('mousemove', resize)
+            window.addEventListener('mouseup', stopResize)
+        })
+        
+        function resize(e) {
+            if (currentResizer.classList.contains('bottom-right')) {
+                const width = original_width + (e.pageX - original_mouse_x);
+                const height = original_height + (e.pageY - original_mouse_y)
+                if (width > minimum_size && canvas.getBoundingClientRect().right>element.getBoundingClientRect().left+width) {
+                    element.style.width = width + 'px'
+                }
+                if (height > minimum_size && canvas.getBoundingClientRect().bottom>element.getBoundingClientRect().top+height) {
+                    element.style.height = height + 'px'
+                }
+            }
+            else if (currentResizer.classList.contains('bottom-left')) {
+                const height = original_height + (e.pageY - original_mouse_y)
+                const width = original_width - (e.pageX - original_mouse_x)
+                if (height > minimum_size && canvas.getBoundingClientRect().bottom>element.getBoundingClientRect().top+height) {
+                    element.style.height = height + 'px'
+                }
+                if (width > minimum_size && canvas.getBoundingClientRect().left<original_x + (e.pageX - original_mouse_x)) {
+                    element.style.width = width + 'px'
+                    element.style.left = original_x + (e.pageX - original_mouse_x) + 'px'
+                }
+            }
+            else if (currentResizer.classList.contains('bottom-center')) {
+                const height = original_height + (e.pageY - original_mouse_y)
+                if (height > minimum_size && canvas.getBoundingClientRect().bottom>element.getBoundingClientRect().top+height) {
+                    element.style.height = height + 'px'
+                    element.style.bottom = original_y + (e.pageY - original_mouse_y) + 'px'
+                }
+            }
+            else if (currentResizer.classList.contains('top-center')) {
+                const height = original_height - (e.pageY - original_mouse_y)
+                if (height > minimum_size && canvas.getBoundingClientRect().top<original_y + (e.pageY - original_mouse_y)) {
+                    element.style.height = height + 'px'
+                    element.style.top = original_y + (e.pageY - original_mouse_y) + 'px'
+                }
+            }
+            else if (currentResizer.classList.contains('right-center')) {
+                const width = original_width + (e.pageX - original_mouse_x)
+                if (width > minimum_size && canvas.getBoundingClientRect().right>element.getBoundingClientRect().left+width) {
+                    element.style.width = width + 'px'
+                    element.style.right = original_x + (e.pageX - original_mouse_x) + 'px'
+                }
+            }
+            else if (currentResizer.classList.contains('left-center')) {
+                const width = original_width - (e.pageX - original_mouse_x)
+                if (width > minimum_size && canvas.getBoundingClientRect().left<original_x + (e.pageX - original_mouse_x)) {
+                    element.style.width = width + 'px'
+                    element.style.left = original_x + (e.pageX - original_mouse_x) + 'px'
+                }
+            }
+            else if (currentResizer.classList.contains('top-right')) {
+                const width = original_width + (e.pageX - original_mouse_x)
+                const height = original_height - (e.pageY - original_mouse_y)
+                if (width > minimum_size && canvas.getBoundingClientRect().right>element.getBoundingClientRect().left+width) {
+                    element.style.width = width + 'px'
+                }
+                if (height > minimum_size && canvas.getBoundingClientRect().top<original_y + (e.pageY - original_mouse_y)) {
+                    element.style.height = height + 'px'
+                    element.style.top = original_y + (e.pageY - original_mouse_y) + 'px'
+                }
+            }
+            else {
+                const width = original_width - (e.pageX - original_mouse_x)
+                const height = original_height - (e.pageY - original_mouse_y)
+                if (width > minimum_size && canvas.getBoundingClientRect().left<original_x + (e.pageX - original_mouse_x)) {
+                    element.style.width = width + 'px'
+                    element.style.left = original_x + (e.pageX - original_mouse_x) + 'px'
+                }
+                if (height > minimum_size && canvas.getBoundingClientRect().top<original_y + (e.pageY - original_mouse_y)) {
+                    element.style.height = height + 'px'
+                    element.style.top = original_y + (e.pageY - original_mouse_y) + 'px'
+                }
+            }
+        }
+        function stopResize() {
+            window.removeEventListener('mousemove', resize)
+        }
+    }
+}
+makeResizableDiv('.resizable');
+    </script>
+</body>
+</html>
