@@ -15,10 +15,10 @@
 ![recadrer](https://user-images.githubusercontent.com/46101779/57969286-e825e980-7964-11e9-9df3-6ded6641dcf2.JPG)
 # Pour l'enregister, cliquez sur Download
 ![download](https://user-images.githubusercontent.com/46101779/57969281-e78d5300-7964-11e9-82d7-103918d3d6ac.JPG)
-# La photo téléchargé 
+# La photo téléchargée 
 ![photo](https://user-images.githubusercontent.com/46101779/57969284-e78d5300-7964-11e9-8768-ffb8084c693a.JPG)
 # Vous pouvez aussi effectuer des filtres sur votre photo
 ![filtre](https://user-images.githubusercontent.com/46101779/57969282-e78d5300-7964-11e9-8660-c987ab652ff1.JPG)
-# Photo téléchargé après le filtre 
+# Photo téléchargée après le filtre 
 ![photo_apres_filtre](https://user-images.githubusercontent.com/46101779/57969285-e825e980-7964-11e9-8219-2cc83dea3126.JPG)
 
