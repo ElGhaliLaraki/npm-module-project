@@ -7,6 +7,8 @@
 ![appareil photo](https://user-images.githubusercontent.com/46101779/57969276-e6f4bc80-7964-11e9-923e-dbdf3667d865.JPG)
 # Pour accéder à l'Appareil photo, vous cliquez sur Appareil Photo, puis sur autoriser 
 ![autorisation](https://user-images.githubusercontent.com/46101779/57969277-e6f4bc80-7964-11e9-8067-1307b023cff6.JPG)
+# Si vous cliquez sur bloquer, une video se lance au lieu de la camera
+![bloque](https://user-images.githubusercontent.com/46101779/57970174-c2e9a900-796d-11e9-8623-0878df6aaa40.JPG)
 # Afin de se prendre en photo, vous cliquez sur le boutton Capturer
 ![capturer](https://user-images.githubusercontent.com/46101779/57969278-e78d5300-7964-11e9-93b2-947ddaf4dd0b.JPG)
 # Un Compteur de 3s se lance avant d'effectuer la capture 
